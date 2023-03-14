@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<h1 align="center" style="padding-top: 100px">Cкидки</h1>
+<div class="products">
+    {% for item in items %}
+    <div class="product">
+        <img src="{{item.image.url}}" alt="Product Image"/>
+        <h3>{{item.name}}</h3>
+        <p>{{ item.description }}</p>
+        <button>Add to Cart</button>
+        <div class="good-item__prices">-->
+            <div class="good-item__prices-old">{{ item.price }}BYN</div>
+            <div class="good-item__prices-new">{{ item.discount_price }}BYN</div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

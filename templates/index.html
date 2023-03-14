@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="banner">
+    <h1 class="animate__animated animate__bounceInDown">Welcome to my shop!</h1>
+</div>
+
+<h1 align="center" style="padding-top: 30px">Новинки</h1>
+<a href="{% url 'new' %}"><h6 align="right" style="padding-right: 60px">Cмотреть все новинки</h6></a>
+<div class="products">
+    {% for item in new_items %}
+    <div class="product">
+        <img src="{{item.image.url}}" alt="Product Image"/>
+        <h3>{{item.name}}</h3>
+        <p>{{ item.description }}</p>
+        <button>Add to Cart</button>
+        <span class="badge bg-success">{{ item.price }} BYN</span>
+    </div>
+    {% endfor %}
+</div>
+
+<h1 align="center" style="padding-top: 30px">Скидки</h1>
+<a href="{% url 'sale' %}"><h6 align="right" style="padding-right: 60px">Cмотреть все скидки</h6></a>
+<div class="products">
+    {% for item in sale_items %}
+    <div class="product">
+        <img src="{{item.image.url}}" alt="Product Image"/>
+        <h3>{{item.name}}</h3>
+        <p>{{ item.description }}</p>
+        <button>Add to Cart</button>
+        <div class="good-item__prices">-->
+            <div class="good-item__prices-old">{{ item.price }}BYN</div>
+            <div class="good-item__prices-new">{{ item.discount_price }}BYN</div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<footer>
+    <p>&copy; 2023. All rights reserved.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script>
+  new WOW().init();
+
+
+
+
+</script>
+</body>
+</html>
+{% endblock %}
