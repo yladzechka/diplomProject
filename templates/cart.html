@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Open Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 50px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+      .product-image {
+        width: 50%;
+        padding: 50px;
+        text-align: center;
+      }
+      .product-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+      .product-info {
+        width: 50%;
+        padding: 50px;
+        text-align: left;
+      }
+      .product-info h2 {
+        font-size: 36px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        color: #333;
+      }
+      .product-info p {
+        font-size: 18px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        color: #666;
+      }
+      .sizes {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .sizes button {
+        margin-right: 20px;
+        font-size: 18px;
+        color: #666;
+        background-color: #f7f7f7;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .sizes button:hover {
+        background-color: #007bff;
+        color: #fff;
+      }
+      .price {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
+
+
+</style>
+
+<br>
+<br>
+
+<div class="container">
+    {% if cart %}
+
+    {% for item in cart.values %}
+    <div class="product-image">
+        <img src="{{ item.photo.url }}" alt="{{ item.name }}"/>
+    </div>
+    <div class="product-info">
+        <h2>{{ item.name }}</h2>
+
+        <div class="price">{{ item.price }} BYN</div>
+<!--        <form method="post" action="#">-->
+<!--            {% csrf_token %}-->
+<!--            <button type="submit">Remove from cart</button>-->
+<!--        </form>-->
+        <hr>
+
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+<script>
+const sizeButtons = document.querySelectorAll(".sizes button");
+sizeButtons.forEach((button) => {
+button.addEventListener("click", () => {
+// Remove active class from all buttons
+sizeButtons.forEach((button) => {
+button.classList.remove("active");
+});
+// Add active class to clicked button
+button.classList.add("active");
+});
+});
+
+
+</script>
+
+{% endblock %}

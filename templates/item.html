@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Open Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 50px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+      .product-image {
+        width: 50%;
+        padding: 50px;
+        text-align: center;
+      }
+      .product-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+      .product-info {
+        width: 50%;
+        padding: 50px;
+        text-align: left;
+      }
+      .product-info h2 {
+        font-size: 36px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        color: #333;
+      }
+      .product-info p {
+        font-size: 18px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        color: #666;
+      }
+      .sizes {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .sizes button {
+        margin-right: 20px;
+        font-size: 18px;
+        color: #666;
+        background-color: #f7f7f7;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .sizes button:hover {
+        background-color: #007bff;
+        color: #fff;
+      }
+      .price {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
+
+</style>
+
+<br>
+<br>
+<div class="container">
+    <div class="product-image">
+        <img src="{{product.image.url}}" alt="Product Image"/>
+    </div>
+    <div class="product-info">
+        <h2>{{ product.name }}</h2>
+        <p>Description of the product goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et nisi
+            quam. Suspendisse potenti. Sed aliquam mi quis odio vestibulum, nec hendrerit elit posuere. Vestibulum ante
+            ipsum prim is in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla facilisi. Sed tristique
+            scelerisque libero, quis tincidunt felis pulvinar id. Nunc at tellus tincidunt, aliquet nulla ac, eleifend
+            sem. Fusce pulvinar sapien sed ipsum vehicula tincidunt.</p>
+        <div class="sizes">
+            <button id="size-xs">XS</button>
+            <button id="size-s">S</button>
+            <button id="size-m">M</button>
+            <button id="size-l">L</button>
+            <button id="size-xl">XL</button>
+            <button id="size-xxl">XXL</button>
+        </div>
+        <div class="price">{{ product.price }} BYN</div>
+
+        <div class="product" style="width: 180px; margin: 0px">
+
+            <button type="button" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3"
+                     viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
+                </svg>
+                В корзину
+            </button>
+        </div>
+
+    </div>
+</div>
+<script>
+const sizeButtons = document.querySelectorAll(".sizes button");
+sizeButtons.forEach((button) => {
+button.addEventListener("click", () => {
+// Remove active class from all buttons
+sizeButtons.forEach((button) => {
+button.classList.remove("active");
+});
+// Add active class to clicked button
+button.classList.add("active");
+});
+});
+
+</script>
+
+{% endblock %}

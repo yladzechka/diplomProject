@@ -4,16 +4,18 @@
 
 <h1 align="center" style="padding-top: 100px">Cкидки</h1>
 <div class="products">
-    {% for item in items %}
+    {% for product in products %}
     <div class="product">
-        <img src="{{item.image.url}}" alt="Product Image"/>
-        <h3>{{item.name}}</h3>
-        <p>{{ item.description }}</p>
+        <a href="{{ product.get_item }}" style="text-decoration: none; color: black">
+        <img src="{{product.image.url}}" alt="Product Image"/>
+        <h3>{{product.name}}</h3>
+        <p>{{ product.description }}</p>
         <button>Add to Cart</button>
         <div class="good-item__prices">-->
-            <div class="good-item__prices-old">{{ item.price }}BYN</div>
-            <div class="good-item__prices-new">{{ item.discount_price }}BYN</div>
+            <div class="good-item__prices-old">{{ product.price }}BYN</div>
+            <div class="good-item__prices-new">{{ product.discount_price }}BYN</div>
         </div>
+        </a>
     </div>
     {% endfor %}
 </div>

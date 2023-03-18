@@ -23,18 +23,28 @@ class Color(models.Model):
 #         return self.name
 
 
-class Item(models.Model):
+class Product(models.Model):
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('U', 'Unisex'),
+    )
     name = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     color = models.ForeignKey(Color, on_delete=models.CASCADE, blank=True, null=True)
     size = models.CharField(max_length=3, choices=[('XS', 'XS'), ('S', 'S'), ('M', 'M'), ('L', 'L'), ('XL', 'XL'), ('XXL', 'XXL')], blank=True, null=True)
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=0)
+    quantity = models.DecimalField(default=1, max_digits=6, decimal_places=0)
     discount_price = models.IntegerField(null=True, blank=True)
-    image = models.ImageField(upload_to='clothing_images/', blank=True, default="clothing_placeholder.jpg")
+    image = models.ImageField(upload_to='clothing_images/', blank=True, default="product_placeholder.jpg")
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='U')
 
     def __str__(self):
         return self.name
 
-    def get_thing(self):
-        return reverse('catalog-thing', args=[self.id])
+    def get_product(self):
+        return reverse('catalog-item', args=[self.id])
+
+    def add_to_cart(self):
+        return reverse('cart-add', args=[self.id])

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,24 +20,96 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
     />
+    <style>
+        .basket {
+  position: relative;
+  display: block;
+}
+.basket__count {
+  position: absolute;
+  top: -8px;
+  right: -20px;
+  background: #00387b;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #FFFFFF;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+.icon-basket {
+  width: 1em;
+}
+
+    </style>
 
 </head>
 <body>
 <header>
     <div class="header-container">
         <a href="/">
-        <img class="logoo" src="/static/img/logo.png">
+            <img class="logoo" src="/static/img/logo.png">
         </a>
         <nav>
-            <ul>
+            <ul style=": 370px">
+                <li ><a href="/">Главная</a></li>
                 <li><a href="{% url 'new' %}">Новинки</a></li>
                 <li><a href="#">Женское</a></li>
                 <li><a href="{% url 'male' %}">Мужское</a></li>
                 <li><a href="{% url 'sale' %}">Скидки</a></li>
                 <li><a href="#">Контакты</a></li>
+
             </ul>
         </nav>
+        <!--                    <div style="height: 100%; border-left: 2px solid #000000;"></div>-->
+        <a href="{% url 'cart' %}" style="text-decoration: None; color: Black; padding-left: 320px">
+                    <img src="static/img/cart.png" alt="Cart" width="32">
+                    ({{ cart|length }})
+                </a>
+<!--        <a class="basket" href="#">-->
+<!--            <svg class="icon icon-basket ">-->
+<!--                <use xlink:href="/images/sprite.svg#basket"></use>-->
+<!--            </svg>-->
+<!--            <div class="basket__count">0</div>-->
+<!--        </a>-->
+<!--        <svg xmlns="http://www.w3.org/2000/svg" height="40%" style="padding-left: 350px" fill="currentColor" class="bi bi-cart3"-->
+<!--             viewBox="0 0 16 16">-->
+<!--            <a target="_blank" href="{% url 'cart' %}" style="width: 32px; height: 32px">-->
+<!--            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>-->
+<!--            <span class="badge bg-dark">({{ cart|length }})</span>-->
+<!--            </a>-->
+<!--        </svg>-->
+
+
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+
+
     </div>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <script src="{% static 'js/popup.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
 </header>
 {% block content %} {% endblock %}
 </body>

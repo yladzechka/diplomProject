@@ -60,45 +60,50 @@
 <br>
 <br>
 <h1 align="center" style="padding-top: 30px">Мужская одежда</h1>
-<form method="GET" action="{% url 'male' %}">
+
+<form method="GET" action="{% url 'male-filter' %}">
   <div class="filter">
     <div class="form-group">
       <label for="min_price">Minimum price:</label>
-      <input type="number" id="min_price" name="min_price" min="0" value="{{ request.GET.min_price }}" class="form-control">
+      <input type="number" id="min_price" name="min_price" min="0" value="{{ min_price|default:'' }}" class="form-control">
     </div>
     <div class="form-group">
       <label for="max_price">Maximum price:</label>
-      <input type="number" id="max_price" name="max_price" min="0" value="{{ request.GET.max_price }}" class="form-control">
+      <input type="number" id="max_price" name="max_price" min="0" value="{{ max_price|default:'' }}" class="form-control">
     </div>
     <div class="form-group">
       <label for="size">Size:</label>
       <select id="size" name="size" class="form-control">
-        <option value="">All sizes</option>
-        <option value="XS" {% if request.GET.size == 'XS' %}selected{% endif %}>XS</option>
-        <option value="S" {% if request.GET.size == 'S' %}selected{% endif %}>S</option>
-        <option value="M" {% if request.GET.size == 'M' %}selected{% endif %}>M</option>
-        <option value="L" {% if request.GET.size == 'L' %}selected{% endif %}>L</option>
-        <option value="XL" {% if request.GET.size == 'XL' %}selected{% endif %}>XL</option>
-        <option value="XXL" {% if request.GET.size == 'XXL' %}selected{% endif %}>XXL</option>
+        <option value="" {% if not size %}selected{% endif %}>All sizes</option>
+        <option value="XS" {% if size == 'XS' %}selected{% endif %}>XS</option>
+        <option value="S" {% if size == 'S' %}selected{% endif %}>S</option>
+        <option value="M" {% if size == 'M' %}selected{% endif %}>M</option>
+        <option value="L" {% if size == 'L' %}selected{% endif %}>L</option>
+        <option value="XL" {% if size == 'XL' %}selected{% endif %}>XL</option>
+        <option value="XXL" {% if size == 'XXL' %}selected{% endif %}>XXL</option>
       </select>
     </div>
     <button type="submit" class="btn btn-primary">Filter</button>
   </div>
 </form>
 
-<div class="products">
-    {% for item in new_items %}
-    <div class="product">
-        <img src="{{item.image.url}}" alt="Product Image"/>
-        <h3>{{item.name}}</h3>
-        <p>{{ item.description }}</p>
-        <button>Add to Cart</button>
-        <span class="badge bg-success">{{ item.price }} BYN</span>
+
+{% if filtered %}
+    <div class="products">
+      {% for product in products %}
+        <div class="product">
+          <img src="{{ product.image.url }}" alt="{{ product.name }} Image">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description }}</p>
+          <span class="badge bg-success">{{ product.price }} BYN</span>
+          <button>Add to Cart</button>
+        </div>
+      {% empty %}
+        <p>No products found.</p>
+      {% endfor %}
     </div>
-    {% empty %}
-    <p>No products found.</p>
-    {% endfor %}
-</div>
+
+  {% endif %}
 
 
 {% endblock %}
