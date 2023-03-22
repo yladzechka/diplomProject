@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  footer {
+    color: #333;
+    padding: 50px 0;
+  }
+
+  h4 {
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  ul.social {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  ul.social li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  ul.social li a {
+    color: #333;
+    font-size: 20px;
+  }
+
+  ul.social li a:hover {
+    color: #ccc;
+  }
+
+  hr {
+    margin: 50px 0;
+  }
+
+  p.text-center {
+    font-size: 14px;
+  }
+</style>
+
+<br>
+<br>
+
+<footer style="background-color: white;">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-4">
+        <h4>About Us</h4>
+        <p>We are a company that specializes in creating beautiful and functional websites.</p>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <h4>Contact Us</h4>
+        <p>123 Main Street<br>Anytown, USA 12345<br>(123) 456-7890</p>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <h4>Follow Us</h4>
+        <ul class="social">
+          <li><a href="#"><i class="fab fa-facebook-f" style="color:#333;"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter" style="color:#333;"></i></a></li>
+          <li><a href="#"><i class="fab fa-instagram" style="color:#333;"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <hr style="border-top: 1px solid #eee;">
+    <p class="text-center" style="color:#333;">Copyright © 2023 Your Company.
+      All Rights Reserved.</p>
+  </div>
+</footer>
+
+{% endblock %}

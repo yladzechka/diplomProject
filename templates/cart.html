@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
+
 <style>
       * {
         box-sizing: border-box;
@@ -77,6 +78,9 @@
       }
 
 
+
+
+
 </style>
 
 <br>
@@ -84,25 +88,19 @@
 
 <div class="container">
     {% if cart %}
-
-    {% for item in cart.values %}
-    <div class="product-image">
-        <img src="{{ item.photo.url }}" alt="{{ item.name }}"/>
-    </div>
-    <div class="product-info">
-        <h2>{{ item.name }}</h2>
-
-        <div class="price">{{ item.price }} BYN</div>
-<!--        <form method="post" action="#">-->
-<!--            {% csrf_token %}-->
-<!--            <button type="submit">Remove from cart</button>-->
-<!--        </form>-->
-        <hr>
-
-    </div>
-    {% endfor %}
+        {% for product_id, item in cart.items %}
+            <div class="product-image">
+                <img src="{{ item.image }}" alt="{{ item.name }}"/>
+                {{ item.image }}
+            </div>
+            <div class="product-info">
+                <h2>{{ item.name }}</h2>
+                <div class="price">{{ item.price }} BYN</div>
+                <a href="{% url 'remove_from_cart' product_id=product_id %}">DELETE</a>
+            </div>
+        {% endfor %}
     {% else %}
-    <p>Your cart is empty.</p>
+        <p>Your cart is empty.</p>
     {% endif %}
 </div>
 <script>
@@ -117,6 +115,9 @@ button.classList.remove("active");
 button.classList.add("active");
 });
 });
+
+
+
 
 
 </script>
