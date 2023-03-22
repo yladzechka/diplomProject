@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import redirect, render, get_object_or_404
 
 from decimal import Decimal
@@ -31,6 +32,8 @@ def remove_from_cart(request, product_id):
 def view_cart(request):
     cart = request.session.get('cart', {})
     products = Product.objects.all()
+    for item in cart.values():
+        item['image_url'] = settings.MEDIA_URL + item['image']
     params = {
         'products': products,
         'cart': cart,

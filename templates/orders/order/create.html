@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<style>
+h1 {
+  font-size: 2.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Style the order info section */
+.order-info {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.order-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.order-info ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.order-info li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-info li span {
+  font-weight: bold;
+}
+
+.order-info p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Style the order form */
+.order-form {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.order-form input[type="text"],
+.order-form input[type="email"] {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.order-form input[type="submit"] {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border: none;
+}
+
+.order-form input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+.order-form p {
+  margin-top: 1rem;
+}
+
+</style>
+
+<br>
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h1 class="text-center">Checkout</h1>
+      <div class="order-info">
+        <h3 style="text-align: center">Ваш заказ</h3>
+        <ul class="list-group">
+          {% for item in cart.values %}
+          <li class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>{{ item.name }}:     </span>
+              <span>{{ item.price }} BYN</span>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        <p>Total: {{ get_total_price }} BYN</p>
+      </div>
+      <form action="." method="post" class="order-form">
+        {{ form.as_p }}
+        <input type="hidden" name="total_price" value="{{ cart.get_total_price }}">
+        <p><input type="submit" class="btn btn-primary btn-block" value="Оплатить"></p>
+        {% csrf_token %}
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

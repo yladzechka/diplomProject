@@ -76,8 +76,17 @@
         font-weight: bold;
         color: #333;
       }
+      .button2 {
+        background-color: #232323;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
 
-
+      }
 
 
 
@@ -85,38 +94,59 @@
 
 <br>
 <br>
+{% if cart %}
+{% for product_id, item in cart.items %}
+<div class="container" style="margin-bottom: 0px">
 
-<div class="container">
-    {% if cart %}
-        {% for product_id, item in cart.items %}
-            <div class="product-image">
-                <img src="{{ item.image }}" alt="{{ item.name }}"/>
-                {{ item.image }}
-            </div>
-            <div class="product-info">
-                <h2>{{ item.name }}</h2>
-                <div class="price">{{ item.price }} BYN</div>
-                <a href="{% url 'remove_from_cart' product_id=product_id %}">DELETE</a>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>Your cart is empty.</p>
-    {% endif %}
+    <div class="product-image" style="width: 22%">
+        <img src="{{ item.image_url }}" alt="{{ item.name }}"/>
+    </div>
+    <div class="product-info">
+        <h2>{{ item.name }}</h2>
+        <div class="price">Стоимость: {{ item.price }} BYN</div>
+
+    </div>
+    <a class="basket" style="padding-bottom: 200px" href="{% url 'remove_from_cart' product_id=product_id %}">
+        <img src="/static/img/trash.png" alt="Trash" width="32">
+    </a>
+
 </div>
+{% endfor %}
+{% else %}
+<br>
+<br>
+<br>
+<h2 style="text-align: center">Ваша корзина пуста!</h2>
+{% endif %}
+
+{% if cart|length > 0 %}
+<div style="text-align:center">
+    <a type="button" onclick="showPopup()" class="btn btn-primary button2" href="{% url 'order_create' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3"
+             viewBox="0 0 16 16">
+            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
+        </svg>
+        Оформить заказ
+    </a>
+</div>
+{% endif %}
+
+
 <script>
-const sizeButtons = document.querySelectorAll(".sizes button");
 sizeButtons.forEach((button) => {
-button.addEventListener("click", () => {
-// Remove active class from all buttons
-sizeButtons.forEach((button) => {
-button.classList.remove("active");
-});
-// Add active class to clicked button
-button.classList.add("active");
-});
+  button.addEventListener("click", handleButtonClick);
 });
 
-
+function handleButtonClick(event) {
+  const selectedButton = event.target;
+  const sizeInput = document.getElementById("size-input");
+  const size = selectedButton.textContent.trim();
+  sizeButtons.forEach((button) => {
+    button.classList.remove("selected");
+  });
+  selectedButton.classList.add("selected");
+  sizeInput.value = size;
+}
 
 
 

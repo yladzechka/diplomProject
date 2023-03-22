@@ -66,15 +66,15 @@
 <form method="GET" action="{% url 'female-filter' %}">
   <div class="filter">
     <div class="form-group">
-      <label for="min_price">Minimum price:</label>
+      <label for="min_price">Цена от:</label>
       <input type="number" id="min_price" name="min_price" min="0" value="{{ min_price|default:'' }}" class="form-control">
     </div>
     <div class="form-group">
-      <label for="max_price">Maximum price:</label>
+      <label for="max_price">Цена до:</label>
       <input type="number" id="max_price" name="max_price" min="0" value="{{ max_price|default:'' }}" class="form-control">
     </div>
     <div class="form-group">
-      <label for="size">Size:</label>
+      <label for="size">Размер:</label>
       <select id="size" name="size" class="form-control">
         <option value="" {% if not size %}selected{% endif %}>All sizes</option>
         <option value="XS" {% if size == 'XS' %}selected{% endif %}>XS</option>
@@ -85,7 +85,7 @@
         <option value="XXL" {% if size == 'XXL' %}selected{% endif %}>XXL</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="submit" class="btn btn-primary">Найти</button>
   </div>
 </form>
 
